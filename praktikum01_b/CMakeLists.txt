@@ -3,4 +3,4 @@ project(praktikum01_b)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(praktikum01_b main.cpp)
+add_executable(praktikum01_b main.cpp List.h)
