@@ -1,7 +1,3 @@
-//
-// Created by dat tran on 04.03.21.
-//
-
 /*************************************************
 * ADS Praktikum 1.1
 * Unit-Testdatei
@@ -42,11 +38,11 @@ TEST_CASE("List Testing", "[List]") {
         REQUIRE(test_list.search(3) == false);
         REQUIRE(test_list.search(9) == true);
 
-        int key;
-        test_list.getBack(key);
-        REQUIRE(key == 4);
-        test_list.getFront(key);
-        REQUIRE(key == 7);
+        int value;
+        test_list.getBack(value);
+        REQUIRE(value == 4);
+        test_list.getFront(value);
+        REQUIRE(value == 7);
     }
 
     SECTION("Hinzufuegen von Nodes aus zweiter Liste am Ende") {
@@ -68,51 +64,72 @@ TEST_CASE("List Testing", "[List]") {
         REQUIRE(test_list.test() == true);
     }
 
-    SECTION("Hinzufuegen von Nodes aus zweiter Liste am Anfang") {
+    SECTION("Hinzufuegen von Nodes aus zweiter Liste am Ende") {
         test_list.insertFront(5);
         test_list.insertFront(7);
 
         test_list.insertBack(9);
 
-        second.insertFront(5);
-        second.insertFront(5);
-        second.insertBack(5);
+        second.insertFront(55);
+        second.insertFront(57);
+        second.insertBack(59);
+
+        Node* test1;
+        vector<Node*> test1_p, test2_p;
+        test1 = get_anker(test_list)->next;
+        for (int i = 0; i < test_list.size();i++) {
+            test1_p.push_back(test1);
+            test1 = test1->next;
+        }
+        test1 = get_anker(second)->next;
+        for (int i = 0; i < second.size(); i++) {
+            test1_p.push_back(test1);
+            test1 = test1->next;
+        }
 
         test_list.insertBack(second);
+
+        test1 = get_anker(test_list)->next;
+        for (int i = 0; i < test_list.size(); i++) {
+            REQUIRE(test1->key == test1_p[i]->key);		// value stimmt
+            REQUIRE(test1 == test1_p[i]);					// Pointer stimmt
+            test1 = test1->next;
+        }
+
 
         REQUIRE(test_list.size() == 6);
 
         Node* tmp = get_anker(test_list);
         tmp = tmp->next;
-        int key = tmp->key;
-        REQUIRE(key == 7);
+        int value = tmp->key;
+        REQUIRE(value == 7);
 
         tmp = tmp->next;
-        key = tmp->key;
-        REQUIRE(key == 5);
+        value = tmp->key;
+        REQUIRE(value == 5);
 
         tmp = tmp->next;
-        key = tmp->key;
-        REQUIRE(key == 9);
+        value = tmp->key;
+        REQUIRE(value == 9);
 
         tmp = tmp->next;
-        key = tmp->key;
-        REQUIRE(key == 5);
+        value = tmp->key;
+        REQUIRE(value == 57);
 
         tmp = tmp->next;
-        key = tmp->key;
-        REQUIRE(key == 5);
+        value = tmp->key;
+        REQUIRE(value == 55);
 
         tmp = tmp->next;
-        key = tmp->key;
-        REQUIRE(key == 5);
+        value = tmp->key;
+        REQUIRE(value == 59);
 
         for (int i = 0; i < 6; i++)
             tmp = tmp->prev;
 
         //head_tail wieder erreicht
-        key = tmp->key;
-        REQUIRE(key == 0);
+        value = tmp->key;
+        REQUIRE(value == 0);
     }
 
     SECTION("Hinzufuegen und Loeschen von Nodes - simpel") {
@@ -135,21 +152,25 @@ TEST_CASE("List Testing", "[List]") {
 
         REQUIRE(test_list.size() == 5);
 
-        int key;
-        test_list.getBack(key);
-        REQUIRE(key == 4);
-        test_list.getFront(key);
-        REQUIRE(key == 9);
+        int value;
+        test_list.getBack(value);
+        REQUIRE(value == 4);
+        test_list.getFront(value);
+        REQUIRE(value == 9);
     }
 
     SECTION("Vertauschen von zwei Elementen und testen der Zeiger") {
         test_list.insertFront(5);
+        Node* fuenf = get_anker(test_list)->next;	// Zeiger auf 5 merken
         test_list.insertFront(7);
+        Node* sieben = get_anker(test_list)->next;	// Zeiger auf 7 merken
         test_list.insertFront(9);
         test_list.insertFront(4);
+        Node* vier = get_anker(test_list)->next;	// Zeiger auf 4 merken
 
         test_list.insertBack(3);
         test_list.insertBack(2);
+        Node* zwei = get_anker(test_list)->prev;	// Zeiger auf 2 merken
         test_list.insertBack(4);
         test_list.insertBack(1);
 
@@ -162,19 +183,21 @@ TEST_CASE("List Testing", "[List]") {
         //prüfe ob 2 an neuem Platz
         for (int i = 0; i < 3; i++)
             tmp = tmp->next;
-        int key = tmp->key;
-        REQUIRE(key == 2);
+        int value = tmp->key;
+        REQUIRE(tmp == zwei);
+        REQUIRE(value == 2);
         //Prüfe ob 7 an neuem Platz
         for (int i = 0; i < 3; i++)
             tmp = tmp->next;
-        key = tmp->key;
-        REQUIRE(key == 7);
+        value = tmp->key;
+        REQUIRE(tmp == sieben);
+        REQUIRE(value == 7);
         tmp = tmp->next;
         //Prüfe ob Anker wieder erreichbar
         for (int i = 0; i < 7; i++)
             tmp = tmp->prev;
-        key = tmp->key;
-        REQUIRE(key == 0);
+        value = tmp->key;
+        REQUIRE(value == 0);
 
         //////////////////////////////////////////////////////////////////////////
         //Fall 2: Erster Knoten mit einem aus der Mitte, nicht nebeneinander	//
@@ -182,19 +205,21 @@ TEST_CASE("List Testing", "[List]") {
         REQUIRE(test_list.swap(4, 5) == true);
         tmp = tmp->next;
         //Prüfe ob neuer erster richtig
-        key = tmp->key;
-        REQUIRE(key == 5);
+        value = tmp->key;
+        REQUIRE(tmp == fuenf);
+        REQUIRE(value == 5);
         //Prüfe ob 4 an neuem Platz
         for (int i = 0; i < 3; i++)
             tmp = tmp->next;
-        key = tmp->key;
-        REQUIRE(key == 4);
+        value = tmp->key;
+        REQUIRE(tmp == vier);
+        REQUIRE(value == 4);
         tmp = tmp->next;
         //Prüfe ob Anker wieder erreichbar
         for (int i = 0; i < 5; i++)
             tmp = tmp->prev;
-        key = tmp->key;
-        REQUIRE(key == 0);
+        value = tmp->key;
+        REQUIRE(value == 0);
 
         //////////////////////////////////////////////////////////////////////////
         //Fall 3: Letzter Knoten mit einem aus der Mitte, nicht nebeneinander	//
@@ -203,19 +228,19 @@ TEST_CASE("List Testing", "[List]") {
         for(int i = 0; i < 5; i++)
             tmp = tmp->next;
         //Prüfe ob 1 an neuem Platz
-        key = tmp->key;
-        REQUIRE(key == 1);
+        value = tmp->key;
+        REQUIRE(value == 1);
         //Prüfe ob neuer letzter richtig
         for (int i = 0; i < 3; i++)
             tmp = tmp->next;
-        key = tmp->key;
-        REQUIRE(key == 3);
+        value = tmp->key;
+        REQUIRE(value == 3);
         tmp = tmp->next;
         //Prüfe ob Anker wieder erreichbar
         for (int i = 0; i < 9; i++)
             tmp = tmp->prev;
-        key = tmp->key;
-        REQUIRE(key == 0);
+        value = tmp->key;
+        REQUIRE(value == 0);
 
         //////////////////////////////////////////////////////
         //Fall 4: Zwei Knoten aus der Mitte, nebeneinander	//
@@ -224,17 +249,17 @@ TEST_CASE("List Testing", "[List]") {
         for (int i = 0; i < 3; i++)
             tmp = tmp->next;
         //Prüfe ob 4 an neuem Platz
-        key = tmp->key;
-        REQUIRE(key == 4);
+        value = tmp->key;
+        REQUIRE(value == 4);
         //Prüfe ob 1 an neuem Platz
         tmp = tmp->next;
-        key = tmp->key;
-        REQUIRE(key == 2);
+        value = tmp->key;
+        REQUIRE(value == 2);
         tmp = tmp->next;
         //Prüfe ob Anker wieder erreichbar
         for (int i = 0; i < 5; i++)
             tmp = tmp->prev;
-        key = tmp->key;
-        REQUIRE(key == 0);
+        value = tmp->key;
+        REQUIRE(value == 0);
     }
 }
