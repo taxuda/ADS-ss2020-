@@ -51,8 +51,8 @@ public:
     List & operator + (const List * List_Append);				// Listen zusammenführen zu einer Liste
     friend std::ostream & operator << (std::ostream & stream, List const & Liste);		// Ausgabeoperator überladen
     friend std::ostream & operator << (std::ostream & stream, List const * Liste);		// Ausgabeoperator überladen
-    friend Node* get_anker(List& l);
-    friend int get_AnzahlNodes(List& l);
+    friend Node* get_anker(List& l);    // ? where is source codes for this function
+    friend int get_AnzahlNodes(List& l);// ? where is source codes for this function
 };
 
 #endif //PRAKTIKUM01_LIST_H
