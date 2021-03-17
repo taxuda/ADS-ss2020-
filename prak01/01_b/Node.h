@@ -4,28 +4,35 @@
 
 #ifndef PRAKTIKUM01_B_NODE_H
 #define PRAKTIKUM01_B_NODE_H
-class Node
-{
+
+template <typename T>
+class Node{
 public:
-    int key;
-    Node * next, * prev;
+    T key;
+    Node<T> * next, * prev;
 public:
     Node();
-    Node(int key, Node * next = 0, Node * prev = 0);
+    Node(T key, Node<T> * next = 0, Node<T> * prev = 0);
     ~Node();
 };
-Node::Node()
+
+template <typename T>
+Node<T>::Node()
 {
     next = 0;
     prev = 0;
 }
-Node::Node(int key, Node * next, Node * prev)
+
+template <typename T>
+Node<T>::Node(T key, Node<T> * next, Node<T> * prev)
 {
     this->key = key;
     this->next = next;
     this->prev = prev;
 }
-Node::~Node()
+
+template <typename T>
+Node<T>::~Node()
 {
 }
 #endif //PRAKTIKUM01_B_NODE_H
