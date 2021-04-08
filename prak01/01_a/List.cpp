@@ -76,8 +76,10 @@ List::~List()
         //*/
         tmp = tmp->next;
         delete tmp->prev;
+        tmp->prev = nullptr;
     }
     delete head_tail;
+    head_tail = nullptr;
     list_size = 0;
 }
 
