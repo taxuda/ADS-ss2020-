@@ -3,6 +3,10 @@
 #include "catch.hpp"
 #include "List.h"
 using namespace std;
+extern Node* get_anker(List&);
+Node* get_next(List &l){
+    return l.head_tail->next;
+}
 
 int main(void)
 {
@@ -70,6 +74,14 @@ int main(void)
     delete MyList_dyn;
     //MyList1.~List();
 
+    Node * anker = nullptr;
+    Node * next_anker = nullptr;
+    List * memoryLeak = new List();
+    anker = get_anker(*memoryLeak);
+    memoryLeak->insertBack(1998);
+    next_anker = get_next(*memoryLeak);
+    memoryLeak->insertBack(1999);
+    delete memoryLeak;
     //system("PAUSE");
     return 0;
 }

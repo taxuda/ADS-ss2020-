@@ -53,6 +53,7 @@ public:
     friend std::ostream & operator << (std::ostream & stream, List const * Liste);		// Ausgabeoperator überladen
     friend Node* get_anker(List& l);    // ? where is source codes for this function
     friend int get_AnzahlNodes(List& l);// ? where is source codes for this function
+    friend Node* get_next(List& l);
 };
 
 #endif //PRAKTIKUM01_LIST_H
