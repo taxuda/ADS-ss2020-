@@ -82,6 +82,8 @@ int main(void)
     next_anker = get_next(*memoryLeak);
     memoryLeak->insertBack(1999);
     memoryLeak->~List();
+    //delete anker;
+    //delete next_anker;
     //system("PAUSE");
     return 0;
 }
