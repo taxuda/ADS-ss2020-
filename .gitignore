@@ -1,0 +1,5 @@
+# Ignore Mac system files
+.idea
+
+# Ignore node_modules folder
+cmake-build-debug
