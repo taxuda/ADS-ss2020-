@@ -166,12 +166,30 @@ namespace sorting {
 
 
 
-	//************
-	// Shellsort *
-	//************
-	void ShellSort(vector<int> &a, int n)
-	{
+	/**
+	 * indexGap = 1: normal insertion sort function
+	 * @param A
+	 * @param indexGap
+	 */
+	void insertionSort(vector<int>&A, int indexGap){
+	    for(int i = indexGap; i < A.size(); i++){
+	        int key = A[i];
+	        int sortedSubLeft = i - indexGap;
+	        // insert key at right position in sorted Subleft
+	        while(sortedSubLeft >= 0 && key < A[sortedSubLeft]){
+	            swap(A[sortedSubLeft], A[i]);
+	            i = sortedSubLeft;  // update new index of key in sorted Subleft
+	            sortedSubLeft -= indexGap;
+	        }
+	    }
+	}
 
+	void ShellSort(vector<int> &A, int len)
+	{
+	    int indexGap = len / 2;
+	    for(; indexGap > 0; indexGap /= 2){
+            insertionSort(A, indexGap);
+	    }
 	}
 
 
