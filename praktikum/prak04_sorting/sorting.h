@@ -14,7 +14,7 @@ namespace sorting {
   //************
   void QuickSort(vector<int> &arr, int left, int right);
 
-  int partition(vector<int> &arr, int low, int high);
+  int partition(vector<int> &A, int first, int last);
   //************
   // MergeSort *
   //************

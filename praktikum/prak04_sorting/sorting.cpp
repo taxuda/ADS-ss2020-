@@ -14,32 +14,22 @@ namespace sorting {
         }
     }
 
-	int partition(vector<int> &arr, int low, int high){
-	    int pivot = arr[high]; // pivot phần tử cuối của array
-	    int left = low;
-	    int right = high - 1;
-	    while(true){
-	        // tìm phần tử bên trái lớn hơn pivot
-	        while(left <= right && arr[left] < pivot) left++;
-            // tìm phần tử bên phải nhỏ hơn pivot
-	        while(right >= left && arr[right] > pivot) right--;
-
-	        // duyệt xong array khi:
-	        // con trỏ từ hai đầu gặp hoặc vượt qua nhau
-	        if(left >= right) break;
-
-	        // hoán đổi vị trí: phần tử nhỏ hơn sang bên trái,
-	        // phần tử lớn hơn sang bên phải
-	        swap(arr[left], arr[right]);
-	        left++;
-	        right--;
+	int partition(vector<int> &A, int first, int last){
+	    int random = first + rand() % (last - first);
+	    swap(A[random], A[last]);
+	    int pivot = A[last];
+	    int smallerSet = first - 1;
+	    // duyệt lần lượt từ first đến last - 1
+	    for(int i = first; i < last; i++){
+	        if(A[i] < pivot){
+	            // smallerSet thêm một phần tử mới
+	            smallerSet++;
+	            swap(A[smallerSet], A[i]);
+	        }
 	    }
-	    // đặt pivot chính giữa hai phần
-	    // bên trái < pivot < bên phải
-	    swap(arr[left], arr[high]);
-
-	    // trả lại vị trí của pivot
-	    return left;
+	    // đặt pivot vào giữa: smallerSet + pivot + greaterSet
+	    swap(A[smallerSet + 1], A[last]);
+	    return smallerSet + 1;
 	}
 
 	//************
