@@ -18,8 +18,8 @@ namespace sorting {
   //************
   // MergeSort *
   //************
-  void Merge(vector<int> &a, vector<int> &b,int low, int pivot, int high);
-  void MergeSort(vector<int> &a, vector<int> &b, int low, int high);
+  void mergeTwoSortedArray(vector<int> &ori, vector<int> &cache, int begin, int pivot, int end);
+  void MergeSort(vector<int> &origin, vector<int> &cache, int low, int high);
 
   //************
   // Heapsort  *

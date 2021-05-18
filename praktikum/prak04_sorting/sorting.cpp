@@ -45,16 +45,43 @@ namespace sorting {
 	//************
 	// MergeSort *
 	//************
-	void Merge(vector<int> &a, vector<int> &b, int low, int pivot, int high) {
+	void mergeTwoSortedArray(vector<int> &A, vector<int> &B, int begin, int pivot, int end) {
+	    int left = begin;
+	    int right = pivot + 1;
 
+	    for(int i = begin; i <= end; i++){
+	        // insert min( A[left], A[right] )
+	        if(A[left] < A[right])
+	            B[i] = A[left++];
+	        else
+	            B[i] = A[right++];
+
+	        // sub left A[left] is empty, copy the rest of sub right A[right] to B
+	        if(left == pivot + 1){
+	            i = i + 1;
+	            while(i <= end) B[i++] = A[right++];
+                break;
+	        }
+
+            // sub right A[right] is empty, copy the rest of sub left A[left] to B
+	        if(right == end + 1){
+	            i = i + 1;
+	            while(i <= end) B[i++] = A[left++];
+	            break;
+	        }
+	    }
+
+	    for(int i = begin; i <= end; i++){
+	        A[i] = B[i];
+	    }
 	}
 
-	void MergeSort(vector<int> &a, vector<int> &b, int low, int high) {
+	void MergeSort(vector<int> &origin, vector<int> &cache, int low, int high) {
 	    if(low < high){
-	        int pivot = low + (low + high) / 2;
-            MergeSort(a, b, low, pivot);
-            MergeSort(a, b, pivot + 1, high);
-            Merge(a, b, low, pivot, high);
+	        int pivot = (low + high) / 2;
+            MergeSort(origin, cache, low, pivot);
+            MergeSort(origin, cache, pivot + 1, high);
+            mergeTwoSortedArray(origin, cache, low, pivot, high);
 	    }
 	}
 
