@@ -104,12 +104,16 @@ namespace sorting {
 	// Heapsort  *
 	//************
 	/**
-	 * @param node_index
+	 * @param nodeIdx
 	 * @return index of node's left child
 	 */
-	int leftchild(int node_index){
-	    return 2 * node_index + 1;
+	int leftchild(int const &nodeIdx){
+	    return 2 * nodeIdx + 1;
 	}
+
+    int parent(int const &nodeIdx){
+        return (nodeIdx - 1) / 2;
+    }
 
 	/**
 	 * max heap: put toPerc node at
@@ -134,10 +138,6 @@ namespace sorting {
             toPerc = max_child; // update new place
             left = leftchild(toPerc);
         }
-	}
-
-	int parent(int node){
-	    return (node - 1) / 2;
 	}
 
 	void HeapSort(vector<int> &A, int arr_size) {
@@ -171,11 +171,6 @@ namespace sorting {
 	//************
 	void ShellSort(vector<int> &a, int n)
 	{
-
-		//***************************
-		// implement shellsort here *
-		//***************************
-
 
 	}
 

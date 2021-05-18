@@ -24,6 +24,8 @@ namespace sorting {
   //************
   // Heapsort  *
   //************
+  int leftchild(int const &nodeIdx);
+  int parent(int const &nodeIdx);
   void percDown(vector<int> &A, int node, int arr_size);
   void HeapSort(vector<int> &A, int len);
 
