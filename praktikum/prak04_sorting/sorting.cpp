@@ -48,9 +48,22 @@ namespace sorting {
 	void mergeTwoSortedArray(vector<int> &A, vector<int> &B, int begin, int pivot, int end) {
 	    int left = begin;
 	    int right = pivot + 1;
+        int i = begin;
+	    while(left <= pivot && right <= end){
+	        // insert min(sub left , sub right) into B
+	        if(A[left] < A[right])
+	            B[i++] = A[left++];
+	        else
+	            B[i++] = A[right++];
+	    }
+	    // previous while loop break when one of two sub arrays is empty
+	    // so, maybe there is rest of sub left or sub right to copy
+	    while(left <= pivot) B[i++] = A[left++];    // copy rest sub left into B
+	    while(right <= end) B[i++] = A[right++];    // copy rest sub right into B
 
+	    /*
 	    for(int i = begin; i <= end; i++){
-	        // insert min( A[left], A[right] )
+	        // insert min( A[left], A[right] ) into B
 	        if(A[left] < A[right])
 	            B[i] = A[left++];
 	        else
@@ -69,7 +82,7 @@ namespace sorting {
 	            while(i <= end) B[i++] = A[left++];
 	            break;
 	        }
-	    }
+	    }*/
 
 	    for(int i = begin; i <= end; i++){
 	        A[i] = B[i];
@@ -78,7 +91,7 @@ namespace sorting {
 
 	void MergeSort(vector<int> &origin, vector<int> &cache, int low, int high) {
 	    if(low < high){
-	        int pivot = (low + high) / 2;
+	        int pivot = low + (high - low) / 2; // tương tự (low + high)/2, tránh tràn số khi low và high lớn
             MergeSort(origin, cache, low, pivot);
             MergeSort(origin, cache, pivot + 1, high);
             mergeTwoSortedArray(origin, cache, low, pivot, high);
