@@ -103,14 +103,65 @@ namespace sorting {
 	//************
 	// Heapsort  *
 	//************
+	/**
+	 * @param node_index
+	 * @return index of node's left child
+	 */
+	int leftchild(int node_index){
+	    return 2 * node_index + 1;
+	}
 
-	void HeapSort(vector<int> &a, int n) {
+	/**
+	 * max heap: put toPerc node at
+	 * right place in min heap tree
+	 * @param A
+	 * @param toPerc
+	 * @param arr_size
+	 */
+	void percDown(vector<int> &A, int toPerc, int arr_size){
+        int left = leftchild(toPerc);
+        while(left < arr_size){
+            int max_child = left;
+            if(left < arr_size - 1){    // toPerc has both left and right children
+                int right = left + 1;
+                max_child = A[left] < A[right] ? right : left;
+            }
 
+            // toPerc is smaller than its children
+            if(A[toPerc] < A[max_child])
+                swap(A[toPerc], A[max_child]);
 
-		//***************************
-		// implement heapsort here *
-		//***************************
+            toPerc = max_child; // update new place
+            left = leftchild(toPerc);
+        }
+	}
 
+	int parent(int node){
+	    return (node - 1) / 2;
+	}
+
+	void HeapSort(vector<int> &A, int arr_size) {
+	    // TRANSFORMATION ARRAY TO MAX HEAP
+	    // bottom up: start at parent of last leaf node
+	    int i = parent(arr_size - 1);
+	    while(i >= 0){
+            percDown(A, i, arr_size);
+            i = i - 1;
+	    }
+
+	    // HEAPSORT WITH MAX HEAP
+	    int last = arr_size - 1;
+	    while(last > 0){
+	        // root of max heap is maximum
+	        // swap maximum value with last element in array
+	        swap(A[0], A[last]);
+
+	        // max heap with new root and smaller size = last = arr_size  - 1 (before was arr_size),
+	        // have to put this new root in right place
+	        // in order to maintain max heap
+            percDown(A, 0, last);   // "last" is new size of this heap
+            last = last - 1;
+	    }
 	}
 
 

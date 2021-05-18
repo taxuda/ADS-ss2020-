@@ -24,7 +24,8 @@ namespace sorting {
   //************
   // Heapsort  *
   //************
-  void HeapSort(vector<int> &a, int n);
+  void percDown(vector<int> &A, int node, int arr_size);
+  void HeapSort(vector<int> &A, int len);
 
   //************
   // Shellsort *
