@@ -178,7 +178,15 @@ namespace sorting {
 	{
 	    int indexGap = len / 2;
 	    for(; indexGap > 0; indexGap /= 2){
-            insertionSort(A, indexGap);
+            //insertionSort(A, indexGap);
+            // Insertion Sort von Elementen mit Abstand gap
+            for (int i = indexGap; i < len; i++) {
+                int tmp = A[i];
+                int j = i;
+                for (; j >= indexGap && tmp < A[j-indexGap]; j -= indexGap) {
+                    A[j] = A[j-indexGap]; }
+                A[j] = tmp; }
+            // Elemente sind im Abstand gap sortiert
 	    }
 	}
 
