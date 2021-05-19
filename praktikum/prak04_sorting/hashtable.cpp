@@ -20,19 +20,23 @@ int HashTable::hashValue(int item) {
 	
 	int index = -1; //dummy initialization
 	int capacity = hashTable->capacity();
-    bool isCollided = false;
+    //bool isCollided = false;
+    int loopCount = -1;
     // using quadratic probing
     int i = 0;
     do{
-        if(isCollided) collisionCount++;
+        //if(isCollided) collisionCount++;
 
         // hash function
         index = (item + i * i) % capacity;
         i++;
 
-        isCollided = true;
+        loopCount++;
+        //isCollided = true;
     }while((*hashTable)[index] != EMPTY);  // lap lai cho den khi nao tim duoc vi tri trong
-	return index;
+
+    collisionCount += loopCount;
+    return index;
 }
 
 int HashTable::insert(int item) {
