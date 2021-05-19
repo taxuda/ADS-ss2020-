@@ -18,7 +18,14 @@ int main(int argc, char** argv) {
   Catch::Session().run();
   std::cin.get();
 
-
+  HashTable mytable{1000};
+  int size = 200;
+  int lowerBound = 1000;
+  for(int i = 0; i < size; i++){
+      int item = lowerBound + rand() % 501;
+      mytable.insert(item);
+  }
+  cout << "Quantity of collisions: " << mytable.getCollisionCount() << endl;
   //benchmark_quicksort();
 
   return 0;

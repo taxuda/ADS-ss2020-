@@ -9,15 +9,15 @@ class HashTable {
 public:
 	HashTable(int size);		// Konstruktor
 	~HashTable();				// Destruktor
-	int insert(int item);		// fügt ein Element der Hashtabelle hinzu
-	int at(int i);				// Liefert das i-te Element der Hashtabelle zurück
-	int getCollisionCount();    // Liefert die Anzahl der Kollisionen zurück
-	int getSize();				// Liefert die Größe der Hashtabelle zurück
-	int getElements();			// Liefert die Anzahl der Elemente der Hashtabelle zurück
+	int insert(int item);		// fuegt ein Element der Hashtabelle hinzu
+	int at(int i);				// Liefert das i-te Element der Hashtabelle zurueck
+	int getCollisionCount() const;    // Liefert die Anzahl der Kollisionen zurueck
+	int getSize() const;				// Liefert die Groesse der Hashtabelle zurueck
+	int getElements() const;			// Liefert die Anzahl der Elemente der Hashtabelle zurueck
 private:
-	int size;					// Größe der HashTable
+	int size;					// Groesse der HashTable
 	int elements;				// Anz. d. Elemente in HashTable
-	int collisionCount;			// Anz. d. Kollisionen beim Einfügen
+	int collisionCount;			// Anz. d. Kollisionen beim Einfï¿½gen
 	vector<int>* hashTable;		// HashTable
 	int hashValue(int item);	// Hashindex berechnen
 };
