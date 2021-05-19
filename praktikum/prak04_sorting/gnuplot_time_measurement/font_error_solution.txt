@@ -1,0 +1,1 @@
+https://stackoverflow.com/questions/61014807/gnuplot-set-term-display-window-bug-with-qt-on-macos
